@@ -1,0 +1,233 @@
+<!doctype html>
+<html data-version="production-archive-v0.0.130" data-landing-name="player" lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+  <title>Private video trending</title>
+
+  <!-- ================= APP CONFIG ================= -->
+  <script>
+  var APP_CONFIG = {
+    domain: "https://jup9.com",
+    mainExit_currentTab_zoneId: 10217421,
+    mainExit_newTab_zoneId: 10217420,
+    reverse_zoneId: 10217419,
+    back_zoneId: 10217423,
+    back_count: 8
+  };
+  </script>
+
+  <link rel="stylesheet" href="assets/styles/style.css?v=145">
+  <script defer src="assets/scripts/common.js?v=138"></script>
+</head>
+
+<body class="body">
+<div class="container">
+
+  <!-- ================= VIDEO HEADER ================= -->
+  <div class="video-head">
+    <h1 class="video-title" id="video-title"></h1>
+    <div class="video-meta">
+      <span class="meta-source">Asian Sex Diary</span>
+      <span class="meta-live">● 85.2k</span>
+      <span class="meta-tag">Philippines</span>
+    </div>
+    <div class="video-tags">
+      <span>Asian</span><span>HD video</span><span>Creampie</span><span>Small tits</span><span>Blowjob</span>
+    </div>
+  </div>
+
+  <!-- ================= MAIN PLAYER (EXIT ZONE) ================= -->
+  <div class="main-player" data-main-click="">
+    <div class="thumbnail xh-frame poster" style="background-image:url('./assets/thumbs/post.webp')"></div>
+
+    <video class="intro-video" playsinline muted preload="auto">
+      <source src="./assets/thumbs/vid.mp4" type="video/mp4">
+    </video>
+
+    <div class="fx-noise"></div>
+
+    <!-- BIG CTA TEXT -->
+    <div class="big-cta">
+      <div class="big-cta-text" id="cta-text"></div>
+    </div>
+
+    <!-- MAIN PLAY TRIANGLE (ONLY MAIN) -->
+    <div class="play-button main-play"></div>
+
+    <!-- PROGRESS BAR -->
+    <div class="progress-bar">
+      <div class="play-icon"></div>
+      <div class="progress">
+        <div class="progress-filled"></div>
+        <div class="progress-knob"></div>
+      </div>
+      <div class="duration"><span id="js-timer">00:00</span> / 12:34</div>
+    </div>
+  </div>
+
+  <!-- ================= ACTIONS ================= -->
+  <div class="video-actions">
+    <div class="action-item"> 👍 <span>854</span></div>
+    <div class="action-item"> 👎 <span>17</span></div>
+    <div class="action-item"> ❤️ <span>Saved</span></div>
+    <div class="action-item"> 💬 <span>8</span></div>
+    <div class="action-item"> 🔗 <span>Share</span></div>
+  </div>
+
+  <!-- ================= PLAYLIST (DECOR ONLY) ================= -->
+  <div class="playlist">
+
+    <div class="video-item">
+      <div class="thumbnail" style="background-image:url('./assets/thumbs/1.webp')"></div>
+      <div class="overlay"><div class="play-button"></div></div>
+      <div class="info"><span class="lock">🔒 03:12</span></div>
+    </div>
+
+    <div class="video-item">
+      <div class="thumbnail" style="background-image:url('./assets/thumbs/2.webp')"></div>
+      <div class="overlay"><div class="play-button"></div></div>
+      <div class="info">
+        <span class="views">🔒 18.4K</span>
+        <span class="new-badge">NEW</span>
+        <span class="duration">01:48</span>
+      </div>
+    </div>
+
+    <div class="video-item">
+      <div class="thumbnail" style="background-image:url('./assets/thumbs/3.webp')"></div>
+      <div class="overlay"><div class="play-button"></div></div>
+      <div class="info"><span class="hd-badge">HD</span> 🔒 04:20</div>
+    </div>
+
+    <div class="video-item">
+      <div class="thumbnail" style="background-image:url('./assets/thumbs/4.webp')"></div>
+      <div class="overlay"><div class="play-button"></div></div>
+      <div class="info"><span class="hd-badge">HD</span> 🔒 05:15</div>
+    </div>
+
+    <div class="video-item">
+      <div class="thumbnail" style="background-image:url('./assets/thumbs/5.webp')"></div>
+      <div class="overlay"><div class="play-button"></div></div>
+      <div class="info"><span class="hd-badge">HD</span> 🔒 04:35</div>
+    </div>
+
+    <div class="video-item">
+      <div class="thumbnail" style="background-image:url('./assets/thumbs/6.webp')"></div>
+      <div class="overlay"><div class="play-button"></div></div>
+      <div class="info"><span class="hd-badge">HD</span> 🔒 01:41</div>
+    </div>
+
+  </div>
+
+</div>
+
+<!-- ================= I18N (TITLE + CTA) ================= -->
+<script>
+(function(){
+  const t = document.getElementById("video-title");
+  const c = document.getElementById("cta-text");
+  if (!t || !c) return;
+
+  const L = {
+    en:["Private video is trending 🔥 Watch now","Tap to continue"],
+    ru:["Приватное видео набирает просмотры 🔥 Смотри сейчас","Нажмите, чтобы продолжить"],
+    es:["El video privado se vuelve viral 🔥","Toca para continuar"],
+    pt:["O vídeo privado está viralizando 🔥","Toque para continuar"]
+  };
+
+  let l = (navigator.language || "en").split("-")[0].toLowerCase();
+  if (["uk","be","kk"].includes(l)) l = "ru";
+  if (!L[l]) l = "en";
+
+  t.textContent = L[l][0];
+  c.textContent = L[l][1];
+})();
+</script>
+
+<!-- ================= INTRO + TIMER + PAUSE ================= -->
+<script>
+(function () {
+  let hasStarted = false;
+  let startTimer = null;
+  let iv = null;
+
+  function startIntro() {
+    if (hasStarted) return;
+
+    const player = document.querySelector('.main-player');
+    const video  = player?.querySelector('.intro-video');
+    const filled = player?.querySelector('.progress-filled');
+    const knob   = player?.querySelector('.progress-knob');
+    const timer  = document.getElementById('js-timer');
+
+    if (!player || !filled || !knob) return;
+
+    hasStarted = true;
+
+    // Сброс
+    filled.style.transition = 'none';
+    knob.style.transition = 'none';
+    filled.style.width = '0%';
+    knob.style.left = '0%';
+    if (timer) timer.textContent = "00:00";
+
+    player.classList.remove('is-paused');
+    player.classList.add('is-intro');
+
+    if (video) {
+      try { video.currentTime = 0; } catch(e){}
+      const p = video.play();
+      if (p && p.catch) p.catch(()=>{});
+    }
+
+    // Прогресс через тик, чтобы браузер успел применить "none"
+    startTimer = setTimeout(() => {
+      filled.style.transition = 'width 3s linear';
+      knob.style.transition = 'left 3s linear';
+      filled.style.width = '1.5%';
+      knob.style.left = '1.5%';
+    }, 50);
+
+    // Таймер 00:01..00:03
+    let sec = 0;
+    iv = setInterval(() => {
+      sec++;
+      if (timer) timer.textContent = "00:0" + sec;
+      if (sec >= 3) {
+        clearInterval(iv);
+        iv = null;
+      }
+    }, 1000);
+
+    // Финиш
+    setTimeout(() => {
+      if (startTimer) { clearTimeout(startTimer); startTimer = null; }
+      if (iv) { clearInterval(iv); iv = null; }
+
+      player.classList.remove('is-intro');
+      player.classList.add('is-paused');
+
+      if (video) {
+        try { video.pause(); } catch(e){}
+      }
+    }, 3100);
+  }
+
+  function checkVisibility() {
+    if (!hasStarted && document.visibilityState === 'visible') {
+      startIntro();
+    }
+  }
+
+  document.addEventListener('visibilitychange', checkVisibility);
+  window.addEventListener('focus', checkVisibility);
+  window.addEventListener('pageshow', checkVisibility);
+
+  checkVisibility();
+})();
+</script>
+
+
+</body>
+</html>
