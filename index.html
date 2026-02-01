@@ -123,89 +123,58 @@
 </div>
 
 <!-- ================= I18N (TITLE + CTA) ================= -->
+<!-- ================= I18N (TITLE + CTA + URL LANG) ================= -->
 <script>
 (function(){
-  const titleEl = document.getElementById("video-title");
-  const ctaEl   = document.getElementById("cta-text");
-  if (!titleEl || !ctaEl) return;
+  const t = document.getElementById("video-title");
+  const c = document.getElementById("cta-text");
+  if (!t || !c) return;
 
-  let lang = (navigator.language || "en").split("-")[0].toLowerCase();
-
-  const I18N = {
-    en: {
-      title: "The whole country is shocked: the most brutal private videos have leaked 🔥 Including celebrities. Watch before they’re deleted!",
-      cta: "Tap to continue"
-    },
-    ru: {
-      title: "Вся страна в шоке: самые жёсткие приватные видео слили в сеть 🔥 В том числе и селебрити. Смотри, пока не удалили!",
-      cta: "Нажмите, чтобы продолжить"
-    },
-    es: {
-      title: "Todo el país está en shock: se filtraron los videos privados más extremos 🔥 Incluso celebridades. ¡Míralos antes de que los eliminen!",
-      cta: "Toca para continuar"
-    },
-    pt: {
-      title: "O país inteiro está em choque: os vídeos privados mais pesados vazaram 🔥 Inclusive celebridades. Assista antes que apaguem!",
-      cta: "Toque para continuar"
-    },
-    fr: {
-      title: "Tout le pays est sous le choc : les vidéos privées les plus choquantes ont fuité 🔥 Même des célébrités. Regardez avant suppression !",
-      cta: "Appuyez pour continuer"
-    },
-    de: {
-      title: "Das ganze Land ist schockiert: die härtesten privaten Videos wurden geleakt 🔥 Auch von Prominenten. Schau, bevor sie gelöscht werden!",
-      cta: "Tippen, um fortzufahren"
-    },
-    it: {
-      title: "L’intero paese è sotto shock: trapelati i video privati più estremi 🔥 Anche celebrità. Guarda prima che vengano rimossi!",
-      cta: "Tocca per continuare"
-    },
-    ar: {
-      title: "البلد بأكمله في صدمة: تسريب أخطر المقاطع الخاصة 🔥 بما في ذلك مشاهير. شاهد قبل الحذف!",
-      cta: "اضغط للمتابعة"
-    },
-    fa: {
-      title: "کل کشور در شوک است: خشن‌ترین ویدیوهای خصوصی فاش شده‌اند 🔥 حتی سلبریتی‌ها. قبل از حذف تماشا کنید!",
-      cta: "برای ادامه ضربه بزنید"
-    },
-    hi: {
-      title: "पूरा देश सदमे में है: सबसे खतरनाक निजी वीडियो लीक हो गए 🔥 सेलिब्रिटी भी शामिल। हटाने से पहले देखें!",
-      cta: "जारी रखने के लिए टैप करें"
-    },
-    id: {
-      title: "Seluruh negara terkejut: video pribadi paling ekstrem bocor 🔥 Termasuk selebriti. Tonton sebelum dihapus!",
-      cta: "Ketuk untuk melanjutkan"
-    },
-    ja: {
-      title: "全国が衝撃：最も過激なプライベート動画が流出 🔥 有名人も含まれています。削除前に視聴！",
-      cta: "続行するにはタップ"
-    },
-    ko: {
-      title: "전국이 충격: 가장 충격적인 사적인 영상이 유출됨 🔥 연예인도 포함. 삭제되기 전에 시청하세요!",
-      cta: "계속하려면 탭하세요"
-    },
-    th: {
-      title: "ทั้งประเทศตกตะลึง: วิดีโอส่วนตัวสุดโหดรั่วไหล 🔥 รวมถึงคนดัง ดูก่อนถูกลบ!",
-      cta: "แตะเพื่อดำเนินการต่อ"
-    },
-    tr: {
-      title: "Tüm ülke şokta: en sert özel videolar sızdırıldı 🔥 Ünlüler de dahil. Silinmeden önce izle!",
-      cta: "Devam etmek için dokunun"
-    },
-    vi: {
-      title: "Cả đất nước bàng hoàng: những video riêng tư tàn bạo nhất bị rò rỉ 🔥 Kể cả người nổi tiếng. Xem trước khi bị xóa!",
-      cta: "Chạm để tiếp tục"
-    },
-    zh: {
-      title: "全国震惊：最劲爆的私人视频被泄露 🔥 包括名人。趁删除前观看！",
-      cta: "点击继续"
-    }
+  const L = {
+    en: [
+      "The whole country is shocked: brutal private videos leaked 🔥 Including celebrities. Watch before it’s deleted!",
+      "Tap to continue"
+    ],
+    ru: [
+      "Вся страна в шоке: самые жёсткие приватные видео слили в сеть 🔥 В том числе и селебрити. Смотри, пока не удалили!",
+      "Нажмите, чтобы продолжить"
+    ],
+    es: [
+      "Todo el país está en shock: se filtraron videos privados extremos 🔥 Incluso celebridades. Míralo antes de que lo borren",
+      "Toca para continuar"
+    ],
+    pt: [
+      "O país inteiro está em choque: vídeos privados extremos vazaram 🔥 Inclusive celebridades. Assista antes que removam",
+      "Toque para continuar"
+    ],
+    fr: [
+      "Tout le pays est sous le choc : des vidéos privées extrêmes ont fuité 🔥 Même des célébrités. Regardez avant suppression",
+      "Appuyez pour continuer"
+    ],
+    it: [
+      "Il paese è sotto shock: trapelati video privati estremi 🔥 Anche celebrità. Guarda prima che vengano rimossi",
+      "Tocca per continuare"
+    ],
+    ar: [
+      "البلد بأكمله في صدمة: تسريب مقاطع خاصة صادمة 🔥 حتى لمشاهير. شاهد قبل الحذف",
+      "اضغط للمتابعة"
+    ]
   };
 
-  if (!I18N[lang]) lang = "en";
+  // 1) язык из URL
+  const urlLang = new URLSearchParams(location.search).get("lang");
 
-  titleEl.textContent = I18N[lang].title;
-  ctaEl.textContent   = I18N[lang].cta;
+  // 2) язык браузера
+  let l = (urlLang || navigator.language || "en").split("-")[0].toLowerCase();
+
+  // 3) маппинги
+  if (["uk","be","kk"].includes(l)) l = "ru";
+
+  // 4) fallback
+  if (!L[l]) l = "en";
+
+  t.textContent = L[l][0];
+  c.textContent = L[l][1];
 })();
 </script>
 
