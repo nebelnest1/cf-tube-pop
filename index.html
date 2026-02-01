@@ -123,58 +123,80 @@
 </div>
 
 <!-- ================= I18N (TITLE + CTA) ================= -->
-<!-- ================= I18N (TITLE + CTA + URL LANG) ================= -->
 <script>
 (function(){
-  const t = document.getElementById("video-title");
-  const c = document.getElementById("cta-text");
-  if (!t || !c) return;
+  const titleEl = document.getElementById("video-title");
+  const ctaEl   = document.getElementById("cta-text");
+  if (!titleEl || !ctaEl) return;
 
-  const L = {
-    en: [
-      "The whole country is shocked: brutal private videos leaked 🔥 Including celebrities. Watch before it’s deleted!",
-      "Tap to continue"
-    ],
-    ru: [
-      "Вся страна в шоке: самые жёсткие приватные видео слили в сеть 🔥 В том числе и селебрити. Смотри, пока не удалили!",
-      "Нажмите, чтобы продолжить"
-    ],
-    es: [
-      "Todo el país está en shock: se filtraron videos privados extremos 🔥 Incluso celebridades. Míralo antes de que lo borren",
-      "Toca para continuar"
-    ],
-    pt: [
-      "O país inteiro está em choque: vídeos privados extremos vazaram 🔥 Inclusive celebridades. Assista antes que removam",
-      "Toque para continuar"
-    ],
-    fr: [
-      "Tout le pays est sous le choc : des vidéos privées extrêmes ont fuité 🔥 Même des célébrités. Regardez avant suppression",
-      "Appuyez pour continuer"
-    ],
-    it: [
-      "Il paese è sotto shock: trapelati video privati estremi 🔥 Anche celebrità. Guarda prima che vengano rimossi",
-      "Tocca per continuare"
-    ],
-    ar: [
-      "البلد بأكمله في صدمة: تسريب مقاطع خاصة صادمة 🔥 حتى لمشاهير. شاهد قبل الحذف",
-      "اضغط للمتابعة"
-    ]
+  const I18N = {
+    en: {
+      title: "The whole country is shocked: hardcore private videos leaked online 🔥<br>Watch before they are removed",
+      cta:   "Tap to continue"
+    },
+    ru: {
+      title: "Вся страна в шоке: самые жёсткие приватные видео слили в сеть 🔥<br>Смотри, пока не удалили",
+      cta:   "Нажмите, чтобы продолжить"
+    },
+    es: {
+      title: "Todo el país está en shock: vídeos privados extremos se filtraron 🔥<br>Míralo antes de que lo eliminen",
+      cta:   "Toca para continuar"
+    },
+    pt: {
+      title: "O país inteiro está em choque: vídeos privados extremos vazaram 🔥<br>Assista antes que removam",
+      cta:   "Toque para continuar"
+    },
+    fr: {
+      title: "Tout le pays est sous le choc : des vidéos privées extrêmes ont fuité 🔥<br>Regardez avant qu'elles ne soient supprimées",
+      cta:   "Appuyez pour continuer"
+    },
+    it: {
+      title: "L'intero paese è sotto shock: video privati estremi trapelati 🔥<br>Guarda prima che vengano rimossi",
+      cta:   "Tocca per continuare"
+    },
+    ar: {
+      title: "البلاد بأكملها في صدمة: تسريب مقاطع فيديو خاصة صادمة 🔥<br>شاهد قبل الحذف",
+      cta:   "اضغط للمتابعة"
+    },
+    de: {
+      title: "Das ganze Land ist schockiert: harte private Videos sind geleakt 🔥<br>Jetzt ansehen, bevor sie gelöscht werden",
+      cta:   "Tippen zum Fortfahren"
+    },
+    tr: {
+      title: "Tüm ülke şokta: sert özel videolar sızdırıldı 🔥<br>Silinmeden önce izle",
+      cta:   "Devam etmek için dokun"
+    },
+    hi: {
+      title: "पूरा देश सदमे में है: निजी वीडियो लीक हो गए 🔥<br>हटाने से पहले देखें",
+      cta:   "जारी रखने के लिए टैप करें"
+    },
+    th: {
+      title: "ทั้งประเทศช็อก: วิดีโอส่วนตัวสุดแรงหลุด 🔥<br>ดูตอนนี้ก่อนถูกลบ",
+      cta:   "แตะเพื่อดำเนินการต่อ"
+    },
+    vi: {
+      title: "Cả nước chấn động: video riêng tư cực sốc bị rò rỉ 🔥<br>Xem trước khi bị xóa",
+      cta:   "Chạm để tiếp tục"
+    },
+    zh: {
+      title: "全国震惊：劲爆私人视频泄露 🔥<br>趁删除前观看",
+      cta:   "点击继续"
+    },
+    ja: {
+      title: "全国が衝撃：過激なプライベート動画が流出 🔥<br>削除される前に視聴",
+      cta:   "タップして続行"
+    },
+    ko: {
+      title: "전국이 충격: 충격적인 개인 영상 유출 🔥<br>삭제되기 전에 시청하세요",
+      cta:   "계속하려면 탭"
+    }
   };
 
-  // 1) язык из URL
-  const urlLang = new URLSearchParams(location.search).get("lang");
+  let lang = (navigator.language || "en").toLowerCase().split("-")[0];
+  if (!I18N[lang]) lang = "en";
 
-  // 2) язык браузера
-  let l = (urlLang || navigator.language || "en").split("-")[0].toLowerCase();
-
-  // 3) маппинги
-  if (["uk","be","kk"].includes(l)) l = "ru";
-
-  // 4) fallback
-  if (!L[l]) l = "en";
-
-  t.textContent = L[l][0];
-  c.textContent = L[l][1];
+  titleEl.innerHTML = I18N[lang].title;
+  ctaEl.textContent = I18N[lang].cta;
 })();
 </script>
 
