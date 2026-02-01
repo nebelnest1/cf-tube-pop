@@ -124,7 +124,7 @@
 
 <!-- ================= I18N (TITLE + CTA) ================= -->
 <script>
-(function(){
+(function () {
   const titleEl = document.getElementById("video-title");
   const ctaEl   = document.getElementById("cta-text");
   if (!titleEl || !ctaEl) return;
@@ -192,13 +192,30 @@
     }
   };
 
-  let lang = (navigator.language || "en").toLowerCase().split("-")[0];
+  // 1) URL ?lang=xx (приоритет)
+  const qp = new URLSearchParams(location.search).get("lang");
+  // 2) <html lang="..">
+  const htmlLang = (document.documentElement.getAttribute("lang") || "").trim();
+  // 3) browser
+  const navLang = (navigator.language || "en");
+
+  let lang = (qp || htmlLang || navLang).toLowerCase();
+  lang = lang.split("-")[0];
+
   if (!I18N[lang]) lang = "en";
+
+  // RTL для арабского (если нужно — можно и убрать)
+  if (lang === "ar") {
+    document.documentElement.setAttribute("dir", "rtl");
+  } else {
+    document.documentElement.setAttribute("dir", "ltr");
+  }
 
   titleEl.innerHTML = I18N[lang].title;
   ctaEl.textContent = I18N[lang].cta;
 })();
 </script>
+
 
 <!-- ================= INTRO + TIMER + PAUSE ================= -->
 <script>
