@@ -301,23 +301,64 @@
   checkVisibility();
 })();
 </script>
+
+
+  
 <script>
-const baseTitle = "Private Tube";
+(() => {
 
-document.title = "Video loading…";
+  const baseTitle = "Private Tube";
+  let timer = null;
+  let step = 0;
 
-setTimeout(() => {
-  if (document.hidden) {
-    document.title = "(1) Private video ready";
+  function startPulse() {
+    if (timer) return;
+
+    step = 0;
+
+    function tick() {
+      step++;
+      const n = (step % 3) + 1;
+
+      const variants = [
+        `(${n}) Private video ready`,
+        `(${n}) 🔥 Private video ready`,
+        `(${n}) Video paused`,
+      ];
+
+      document.title = variants[step % variants.length];
+      timer = setTimeout(tick, 3000);
+    }
+
+    tick();
   }
-}, 6000);
 
-document.addEventListener("visibilitychange", () => {
-  if (!document.hidden) {
+  function stopPulse() {
+    if (timer) {
+      clearTimeout(timer);
+      timer = null;
+    }
     document.title = baseTitle;
   }
-});
+
+  document.addEventListener("visibilitychange", () => {
+    if (document.hidden) {
+      startPulse();
+    } else {
+      stopPulse();
+    }
+  });
+
+  // КЛЮЧ: если вкладка открылась сразу в фоне
+  if (document.hidden) {
+    startPulse();
+  } else {
+    document.title = baseTitle;
+  }
+
+})();
 </script>
+
 
 </body>
 </html>
